@@ -128,6 +128,7 @@ var output = function(d, c) {
 };
 
 var perm = utility.permutation(data, 2);
+perm = [[]];
 var i;
 for (i = 0; i < perm.length; i++) {
     var d = perm[i];
