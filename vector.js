@@ -40,6 +40,8 @@
             for (i = 0; i < this._size; i++) {
                 this._data[i] += obj._data[i];
             }
+        } else {
+            throw 'Not a Vector Object';
         }
     };
 

@@ -18,5 +18,34 @@ suite('Vector Initialization', function() {
 });
 
 suite('Vector Add Function', function() {
-   
+    test('Success Add Vector', function() {
+        var a = new Vector();
+        var b = new Vector();
+        a.init([1,2,3]);
+        b.init([4,5,6]);
+        a.plus(b);
+        assert.deepEqual([5,7,9], a.getData());
+    });
+
+    test('Failed with different dimension', function() {
+        var a = new Vector();
+        var b = new Vector();
+        a.init([1,2,3]);
+        b.init([2,3,4,5]);
+        try {
+            a.plus(b);
+        } catch (err) {
+            assert('Size not Match', err);
+        }
+    });
+
+    test('Failed with non-vector variable', function() {
+        var a = new Vector();
+        a.init([1,2,3]);
+        try {
+            a.plus('abc');
+        } catch (err) {
+            assert('Not a Vector Object', err);
+        }
+    });
 });
