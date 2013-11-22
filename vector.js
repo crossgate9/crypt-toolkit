@@ -45,6 +45,29 @@
         }
     };
 
+    vector.prototype.dot = function(obj) {
+        var i;
+        if (typeof obj === 'number') {
+            for (i = 0; i < this._size; i++) {
+                this._data[i] *= obj;
+            }
+        } else if (typeof obj._type !== 'undefined') {
+            if (obj._type !== 'vector') {
+                throw 'Dot Object Unrecognized';
+            }
+
+            if (this._size !== obj._size) {
+                throw 'Size not Match';
+            }
+
+            for (i = 0; i < this._size; i++) {
+                this._data[i] *= obj._data[i];
+            }
+        } else {
+            throw 'Dot Object Unrecognized';
+        }
+    };
+
     if (typeof exports !== 'undefined') {
         if (typeof module !== 'undefined' && module.exports) {
             exports = module.exports = vector;
