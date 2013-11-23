@@ -41,3 +41,7 @@ exports.hex = function(a) {
     };
     return c[a];
 };
+
+exports.isArray = function(obj) {
+    return Object.prototype.toString.call(obj) === '[object Array]';
+};
