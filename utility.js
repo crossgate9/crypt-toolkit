@@ -24,7 +24,7 @@ exports.permutation = function(input, m) {
 };
 
 exports.xor = function(a, b) {
-    return (((a || b) && !(a && b))) ? 1 : 0;
+    return a ^ b;
 };
 
 exports.hex = function(a) {
