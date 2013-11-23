@@ -1,4 +1,4 @@
-var _ = require('./underscore');
+var _ = require('./lib/underscore');
 var utility = require('./utility');
 
 var b = 11,
@@ -128,7 +128,7 @@ var output = function(d, c) {
 };
 
 var perm = utility.permutation(data, 2);
-perm = [[]];
+// perm = [[]];
 var i;
 for (i = 0; i < perm.length; i++) {
     var d = perm[i];
