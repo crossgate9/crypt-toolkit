@@ -17,14 +17,22 @@ suite('Vector Initialization', function() {
     });
 });
 
-suite('Vector Add Function', function() {
-    test('Success Add Vector', function() {
+suite('Vector Plus Function', function() {
+    test('Success Plus Vector', function() {
         var a = new Vector();
         var b = new Vector();
         a.init([1,2,3]);
         b.init([4,5,6]);
-        a.plus(b);
-        assert.deepEqual([5,7,9], a.getData());
+        assert.deepEqual([5,7,9], a.plus(b).getData());
+    });
+
+    test('Modify Plus Method', function() {
+        var a = new Vector();
+        var b = new Vector();
+        a.init([1,2,3]);
+        b.init([4,5,6]);
+        a.setPlus(function(a, b) { return a^b;});
+        assert.deepEqual([5, 7, 5], a.plus(b).getData());
     });
 
     test('Failed with different dimension', function() {
@@ -99,5 +107,13 @@ suite('Vector Dot Function', function() {
         } catch (err) {
             assert('Size not Match', err);
         }
+    });
+});
+
+suite('Vector Power Function', function() {
+    test('Success', function() {
+        var a = new Vector();
+        a.init([1,2,3]);
+        assert.deepEqual([1,8,27], a.power(3).getData());
     });
 });
