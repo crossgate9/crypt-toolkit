@@ -1,17 +1,22 @@
 exports.permutation = function(input, m) {
+
+    if (m > input.length) {
+        throw 'Number Exceed the Array Size';
+    }
+
     var permArr = [],
         used = [];
 
     var recursive = function(input, m, last) {
         var i, d;
 
-        for (i = 0; i < input.length; i++) {
+        for (i = last; i < input.length; i++) {
             d = input.splice(i, 1)[0];
             used.push(d);
             if (m === 1) {
                 permArr.push(used.slice());
             } else {
-                recursive(input, m-1);
+                recursive(input, m-1, i);
             }
             input.splice(i, 0, d);
             used.pop();
