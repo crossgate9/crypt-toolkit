@@ -1,5 +1,8 @@
-var assert = require('assert');
-var utility = require('../utility');
+var utility = require('../utility'),
+    assert = require('assert'),
+    // expect = require('chai').expect,
+    should = require('should');
+    
 
 suite('Utility Basic Function', function() {
     test('permutation', function() {
@@ -12,11 +15,7 @@ suite('Utility Basic Function', function() {
 
     test('Failed with Size Exceed, Permutation', function() {
         var a = [1,2,3];
-        try {
-            utility.permutation(a, 4);
-        } catch (err) {
-            assert.equal('Number Exceed the Array Size', err);
-        }
+        (function() { utility.permutation(a, 4); }).should.throw('Number Exceed the Array Size');
     });
 
     test('xor', function() {
@@ -48,5 +47,21 @@ suite('Utility Basic Function', function() {
         assert.equal(false, utility.isArray(1));
         assert.equal(false, utility.isArray({1: 1,2: 2,3: 3}));
         assert.equal(false, utility.isArray('abc'));
+    });
+
+    test('isNumber', function() {
+        assert.equal(true, utility.isNumber(1));
+        assert.equal(false, utility.isNumber(true));
+        assert.equal(false, utility.isNumber('abc'));
+        assert.equal(false, utility.isNumber([]));
+        assert.equal(false, utility.isNumber({1:2}));
+    });
+
+    test('getArrayDimension', function() {
+        assert.deepEqual([2,2],utility.getArrayDimension([[1,2],[3,4]]));
+        (function() { utility.getArrayDimension({1:2}); }).should.throw('Object is not an array');
+        (function() { utility.getArrayDimension([{1:2}, {2:3}]); }).should.throw('Object is not an array');
+        (function() { utility.getArrayDimension([[1,2],[1,2,3]]); }).should.throw('Row count doesn\'t match');
+        (function() { utility.getArrayDimension([[1,2],[2,'3']]); }).should.throw('Entity is not a Number');
     });
 });

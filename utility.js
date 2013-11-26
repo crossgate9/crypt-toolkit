@@ -5,7 +5,7 @@
     utility.permutation = function(input, m) {
 
         if (m > input.length) {
-            throw 'Number Exceed the Array Size';
+            throw new Error('Number Exceed the Array Size');
         }
 
         var permArr = [],
@@ -48,6 +48,38 @@
 
     utility.isArray = function(obj) {
         return Object.prototype.toString.call(obj) === '[object Array]';
+    };
+
+    utility.isNumber = function(obj) {
+        return Object.prototype.toString.call(obj) === '[object Number]';
+    };
+
+    utility.getArrayDimension = function(obj) {
+        var row, column = -1;
+        var i, j;
+
+        if (utility.isArray(obj) === false) {
+            throw new Error('Object is not an array');
+        } else {
+            row = obj.length;
+            for (i = 0; i < row; i++) {
+                if (utility.isArray(obj[i]) === false) {
+                    throw new Error('Object is not an array');
+                } else {
+                    if (column === -1) column = obj[i].length;
+                    if (obj[i].length !== column) {
+                        throw new Error('Row count doesn\'t match');
+                    }
+                    for (j = 0; j < column; j++) {
+                        if (utility.isNumber(obj[i][j]) === false) {
+                            throw new Error('Entity is not a Number');
+                        }
+                    }
+                }
+            }
+        }
+
+        return [row, column];
     };
 
     if (typeof exports !== 'undefined') {
