@@ -11,6 +11,8 @@ var _ = require('./lib/underscore');
     };
     
     matrix.prototype.init = function(obj, type) {
+        var i;
+
         type = type | this.TYPE.BYSIZE;
 
         this._data = [];
@@ -27,13 +29,16 @@ var _ = require('./lib/underscore');
 
         if (type === this.prototype.TYPE.BYSIZE) {
             this._size = obj;
-            this._data = Array.apply(null, new Array(obj)).map(
-                
-            );
+            this._data = [];
+            for (i = 0; i < obj[0]; i++) {
+                this._data[i] = Array.apply(null, new Array(obj[1])).map(Number.prototype.valueOf,0);
+            }
         }
 
         if (type === this.prototype.TYPE.BYDATA) {
-
+            this._size = utility.getArrayDimension(obj);
+            // [TODO] deep copy
+            this._data = obj;
         }
     };
 
