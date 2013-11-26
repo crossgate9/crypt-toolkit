@@ -40,21 +40,13 @@ suite('Vector Plus Function', function() {
         var b = new Vector();
         a.init([1,2,3]);
         b.init([2,3,4,5]);
-        try {
-            a.plus(b);
-        } catch (err) {
-            assert('Size not Match', err);
-        }
+        (function() { a.plus(b); }).should.throw('Size not Match');
     });
 
     test('Failed with non-vector variable', function() {
         var a = new Vector();
         a.init([1,2,3]);
-        try {
-            a.plus('abc');
-        } catch (err) {
-            assert('Not a Vector Object', err);
-        }
+        (function() { a.plus('abc'); }).should.throw('Not a Vector Object');
     });
 });
 
@@ -78,11 +70,7 @@ suite('Vector Dot Function', function() {
     test('Failed with Unrecognized Object I', function() {
         var a = new Vector();
         a.init([1,2,3]);
-        try {
-            a.dot('abc');
-        } catch (err) {
-            assert('Dot Object Unrecognized', err);
-        }
+        (function() { a.dot('abc'); }).should.throw('Dot Object Unrecognized');
     });
 
     test('Failed with Unrecognized Object II', function() {
@@ -90,11 +78,7 @@ suite('Vector Dot Function', function() {
         var b = { };
         a.init([1,2,3]);
         b._type = 'string';
-        try {
-            a.dot(b);
-        } catch (err) {
-            assert('Dot Object Unrecognized', err);
-        }
+        (function() { a.dot(b); }).should.throw('Dot Object Unrecognized');
     });
 
     test('Failed with different size', function() {
@@ -102,11 +86,7 @@ suite('Vector Dot Function', function() {
         var b = new Vector();
         a.init([1,2,3]);
         b.init([2,3,4,5]);
-        try {
-            a.dot(b);
-        } catch (err) {
-            assert('Size not Match', err);
-        }
+        (function() { a.dot(b); }).should.throw('Size not Match');
     });
 });
 

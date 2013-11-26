@@ -53,11 +53,11 @@
 
         if (typeof obj._type !== 'undefined') {
             if (obj._type !== 'vector') {
-                throw 'Not a Vector Object';
+                throw new Error('Not a Vector Object');
             }
 
             if (this._size !== obj._size) {
-                throw 'Size not Match';
+                throw new Error('Size not Match');
             }
 
             var i;
@@ -65,7 +65,7 @@
                 this._data[i] = self._plus(this._data[i], obj._data[i]);
             }
         } else {
-            throw 'Not a Vector Object';
+            throw new Error('Not a Vector Object');
         }
         return this;
     };
@@ -81,18 +81,18 @@
             }
         } else if (typeof obj._type !== 'undefined') {
             if (obj._type !== 'vector') {
-                throw 'Dot Object Unrecognized';
+                throw new Error('Dot Object Unrecognized');
             }
             // dot vector
             if (this._size !== obj._size) {
-                throw 'Size not Match';
+                throw new Error('Size not Match');
             }
 
             for (i = 0; i < this._size; i++) {
                 this._data[i] = self._multiple(this._data[i], obj._data[i]);
             }
         } else {
-            throw 'Dot Object Unrecognized';
+            throw new Error('Dot Object Unrecognized');
         }
         return this;
     };
