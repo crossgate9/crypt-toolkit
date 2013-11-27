@@ -1,4 +1,5 @@
 var Matrix = require('../matrix'),
+    Vector = require('../vector'),
     assert = require('assert'),
     should = require('should');
 
@@ -46,5 +47,46 @@ suite('Matrix Get Property', function() {
        var a = new Matrix();
         a.init([[1,2],[2,3]], a.TYPE.BYDATA);
         assert.deepEqual([[1,2],[2,3]], a.getData());
+    });
+});
+
+suite('isMatrix', function() {
+    test('True I', function() {
+        var a = new Matrix();
+        a.init([2, 3], a.TYPE.BYSIZE);
+        assert.equal(true, Matrix.isMatrix(a));
+    });
+
+    test('True II', function() {
+        var a = new Matrix();
+        a.init([[1,2],[3,4]], a.TYPE.BYDATA);
+        assert.equal(true, Matrix.isMatrix(a));
+    });
+
+    test('False I', function() {
+        assert.equal(false, Matrix.isMatrix(null));
+    });
+
+    test('False II', function() {
+        var a = new Vector();
+        assert.equal(false, Matrix.isMatrix(a));
+    });
+
+    test('False III', function() {
+        var a = {
+            _type: 'matrix',
+            _size: [2, 2],
+            _data: 'abc'
+        };
+        assert.equal(false, Matrix.isMatrix(a));
+    });
+
+    test('False IV', function() {
+        var a = {
+            _type: 'matrix',
+            _size: [2, 2],
+            _data: [[1,2,3],[2,3,4]]
+        };
+        (function() { Matrix.isMatrix(a); }).should.throw('Size doesn\'t match');
     });
 });

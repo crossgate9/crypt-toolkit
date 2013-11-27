@@ -59,8 +59,9 @@ var _ = require('./lib/underscore');
         root.matrix = matrix;
     }
 
-    matrix.prototype.isMatrix = function(obj) {
-        if (obj._type === null || typeof obj._type === 'undefined' ||
+    matrix.isMatrix = function(obj) {
+        if (obj === null || typeof obj === 'undefined' ||
+            obj._type === null || typeof obj._type === 'undefined' ||
             obj._size === null || typeof obj._size === 'undefined' ||
             obj._data === null || typeof obj._data === 'undefined') {
             return false;
@@ -77,7 +78,7 @@ var _ = require('./lib/underscore');
             return false;
         }
 
-        if (size[0] !== this._size[0] || size[1] !== this._size[1]) {
+        if (size[0] !== obj._size[0] || size[1] !== obj._size[1]) {
             throw new Error('Size doesn\'t match');
         }
 
