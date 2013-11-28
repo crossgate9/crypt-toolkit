@@ -90,3 +90,13 @@ suite('isMatrix', function() {
         (function() { Matrix.isMatrix(a); }).should.throw('Size doesn\'t match');
     });
 });
+
+suite('Plus', function() {
+    test('Success', function() {
+        var a = new Matrix(),
+            b = new Matrix();
+        a.init([[1,2],[3,4]], a.TYPE.BYDATA);
+        b.init([[1,2],[3,4]], b.TYPE.BYDATA).plus(a);
+        assert.deepEqual([[2,4],[6,8]], b.getData());
+    });
+});
