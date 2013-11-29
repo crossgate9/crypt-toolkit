@@ -99,4 +99,42 @@ suite('Plus', function() {
         b.init([[1,2],[3,4]], b.TYPE.BYDATA).plus(a);
         assert.deepEqual([[2,4],[6,8]], b.getData());
     });
+
+    test('Fail I', function() {
+        var a = new Matrix();
+        a.init([[1,2],[3,4]], a.TYPE.BYDATA);
+        (function() { a.plus('abc'); }).should.throw('Object not a matrix');
+    });
+
+    test('Fail II', function() {
+        var a = new Matrix(),
+            b = new Matrix();
+        a.init([[1,2],[3,4]], a.TYPE.BYDATA);
+        b.init([[1,2,3],[4,5,6]], b.TYPE.BYDATA);
+        (function() { a.plus(b); }).should.throw('Size not match');
+    });
+});
+
+suite('Multiple', function() {
+    test('Success', function() {
+        var a = new Matrix(),
+            b = new Matrix();
+        a.init([[1,2],[3,4]], a.TYPE.BYDATA);
+        b.init([[1,2],[3,4]], b.TYPE.BYDATA);
+        assert.deepEqual([[7, 10], [15, 22]], b.multiple(a).getData());
+    });
+
+    test('Fail I', function() {
+        var a = new Matrix();
+        a.init([[1,2],[3,4]], a.TYPE.BYDATA);
+        (function() { a.multiple('abc'); }).should.throw('Object not a matrix');
+    });
+
+    test('Fail II', function() {
+        var a = new Matrix(),
+            b = new Matrix();
+        a.init([[1,2],[3,4]], a.TYPE.BYDATA);
+        b.init([[1,2,3],[4,5,6], [7, 8, 9]], b.TYPE.BYDATA);
+        (function() { a.multiple(b); }).should.throw('Size not match');
+    });
 });

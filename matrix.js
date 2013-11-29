@@ -48,7 +48,7 @@ var _ = require('./lib/underscore');
             // [TODO] deep copy
             this._data = obj;
         }
-        
+
         return this;
     };
 
@@ -107,5 +107,35 @@ var _ = require('./lib/underscore');
         }
 
         return this;
+    };
+
+    matrix.prototype.multiple = function(obj) {
+        if (matrix.isMatrix(obj) === false) {
+            throw new Error('Object not a matrix');
+        }
+
+        var sizeA = this.getSize(),
+            sizeB = obj.getSize();
+        if (sizeA[1] !== sizeB[0]) {
+            throw new Error('Size not match');
+        }
+
+        var tmp, i, j, k;
+        var dataA = this.getData(),
+            dataB = obj.getData();
+        var res = [];
+
+        for (i = 0; i < sizeA[0]; i++) {
+            res[i] = [];
+            for (j = 0; j < sizeB[1]; j++) {
+                tmp = 0;
+                for (k = 0; k < sizeA[1]; k++) {
+                    tmp += dataA[i][k] * dataB[k][j];
+                }
+                res[i][j] = tmp;
+            }
+        }
+
+        return this.init(res, this.TYPE.BYDATA);
     };
 }).call(this);
