@@ -22,6 +22,18 @@
         return this;
     };
 
+    // toString
+    vector.prototype.toString = function() {
+        var i;
+        var s = '[';
+        for (i = 0; i < this._size; i++) {
+            if (i !== 0) s += ',';
+            s += this._data[i];
+        }
+        s += ']';
+        return s;
+    };
+
     // change the default plus method
     vector.prototype.setPlus = function(callback) {
         this._plus = callback;

@@ -97,3 +97,11 @@ suite('Vector Power Function', function() {
         assert.deepEqual([1,8,27], a.power(3).getData());
     });
 });
+
+suite('toString', function() {
+    test('Success', function() {
+        var a = new Vector();
+        a.init([1,2,3]);
+        assert.equal('[1,2,3]', a.toString());
+    });
+});
