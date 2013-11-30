@@ -1,5 +1,6 @@
 var _ = require('./lib/underscore');
 var utility = require('./utility');
+var Vector = require('./vector');
 
 var b = 11,
     c = 12,
@@ -7,27 +8,28 @@ var b = 11,
     e = 14;
 
 var data = [
-    [0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0],
-    [0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1],
-    [0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0],
-    [0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0],
-    [0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1],
-    [0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1],
-    [1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0 ,1],
-    [1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1],
-    [1, 0, 0, 0, 1, 1, 0 ,1, 1, 0, 1, 1],
-    [1, 1, 0 ,1, 1, 0, 0, 0, 1, 0, 0, 0],
-    [1, 1, 0 ,1, 1, 0, 0, 0, 1, 1, 0, 0],
-    [1, 1, 0 ,1, 1, 1, 0, 0, 1, 0, 0, 0]
+    new Vector().init([0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0]),
+    new Vector().init([0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1]),
+    new Vector().init([0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0]),
+    new Vector().init([0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0]),
+    new Vector().init([0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1]),
+    new Vector().init([0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1]),
+    new Vector().init([1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0 ,1]),
+    new Vector().init([1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1]),
+    new Vector().init([1, 0, 0, 0, 1, 1, 0 ,1, 1, 0, 1, 1]),
+    new Vector().init([1, 1, 0 ,1, 1, 0, 0, 0, 1, 0, 0, 0]),
+    new Vector().init([1, 1, 0 ,1, 1, 0, 0, 0, 1, 1, 0, 0]),
+    new Vector().init([1, 1, 0 ,1, 1, 1, 0, 0, 1, 0, 0, 0])
 ];
 
 var c;
 var used;
 
 var category = function(v) {
-    var w = v[0] * 8 + v[1] * 4 + v[2] * 2 + v[3],
-        y = v[4] * 8 + v[5] * 4 + v[6] * 2 + v[7],
-        z = v[8] * 8 + v[9] * 4 + v[10] * 2 + v[11];
+    var d = v.getData();
+    var w = d[0] * 8 + d[1] * 4 + d[2] * 2 + d[3],
+        y = d[4] * 8 + d[5] * 4 + d[6] * 2 + d[7],
+        z = d[8] * 8 + d[9] * 4 + d[10] * 2 + d[11];
     var vv = w.toString() + ',' + y.toString() + ',' + z.toString();
     if (_.indexOf(used, vv) !== -1) {
         return;
@@ -92,11 +94,11 @@ var sub = function(data, x) {
         for (i = 0; i < data.length; i++) {
             if (a[i] === 1) {
                 for (j = 0; j < 12; j++) {
-                    v[j] = utility.xor(v[j], data[i][j]);
+                    v[j] = utility.xor(v[j], data[i].getData()[j]);
                 }
             }
         }
-        category(v);
+        category(new Vector().init(v));
     } else {
         for (i = 0; i < 2; i++) {
             a[x] = i;
@@ -109,10 +111,11 @@ var output = function(d, c) {
     var dd = [];
     var i, j;
     for (i = 0; i < d.length; i++) {
+        var data = d[i].getData();
         dd[i] = [];
-        dd[i][0] = utility.hex(d[i][0] * 8 + d[i][1] * 4 + d[i][2] * 2 + d[i][3]);
-        dd[i][1] = utility.hex(d[i][4] * 8 + d[i][5] * 4 + d[i][6] * 2 + d[i][7]);
-        dd[i][2] = utility.hex(d[i][8] * 8 + d[i][9] * 4 + d[i][10] * 2 + d[i][11]);
+        dd[i][0] = utility.hex(data[0] * 8 + data[1] * 4 + data[2] * 2 + data[3]);
+        dd[i][1] = utility.hex(data[4] * 8 + data[5] * 4 + data[6] * 2 + data[7]);
+        dd[i][2] = utility.hex(data[8] * 8 + data[9] * 4 + data[10] * 2 + data[11]);
     }
     for (i = 0; i < d.length; i++) {
         process.stdout.write('[');
