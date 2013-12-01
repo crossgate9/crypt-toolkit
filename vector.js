@@ -1,3 +1,5 @@
+var utility = require('./utility');
+
 (function() {
     var vector = function() { };
     vector.VERSION = '0.1.0';
@@ -14,7 +16,7 @@
         this._size = 0;
         this._class = 'vector';
         this._type = type;
-        
+
         this._plus = function(a, b) { return a+b; };
         this._multiple = function(a, b) { return a*b; };
         this._one = 1;
@@ -41,6 +43,10 @@
         }
         s += ']';
         return s;
+    };
+
+    vector.prototype.getClass = function() {
+        return this._class;
     };
 
     // change the default plus method
@@ -130,6 +136,29 @@
             this._data[i] = tmp;
         }
         return this;
+    };
+
+    vector.isVector = function(obj) {
+        if (obj === null || typeof obj === 'undefined' ||
+            obj._class === null || typeof obj._class === 'undefined' ||
+            obj._size === null || typeof obj._size === 'undefined' ||
+            obj._data === null || typeof obj._data === 'undefined') {
+            return false;
+        }
+
+        if (obj._class !== 'vector') {
+            return false;
+        }
+
+        if (utility.isArray(obj._data) === false) {
+            return false;
+        }
+
+        if (obj._data.length !== obj._size) {
+            throw new Error('Size doesn\'t match');
+        }
+
+        return true;
     };
 
     if (typeof exports !== 'undefined') {

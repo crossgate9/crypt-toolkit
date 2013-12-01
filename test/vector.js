@@ -105,3 +105,32 @@ suite('toString', function() {
         assert.equal('[1,2,3]', a.toString());
     });
 });
+
+suite('isVector', function() {
+    test('True', function() {
+        var a = new Vector();
+        a.init([1,2,3]);
+        assert.equal(true, Vector.isVector(a));
+    });
+
+    test('False I', function() {
+        assert.equal(false, Vector.isVector(null));
+        assert.equal(false, Vector.isVector('abc'));
+        assert.equal(false, Vector.isVector(
+            {
+                '_class': 'vector',
+                '_size': 1,
+                '_data': 'a'
+            }
+        ));
+    });
+
+    test('False II', function() {
+        var a = {
+            '_class': 'vector',
+            '_size': 3,
+            '_data': [1,2,3,4]
+        };
+        (function() { Vector.isVector(a); }).should.throw('Size doesn\'t match');
+    });
+});
