@@ -44,7 +44,7 @@ var _ = require('./lib/underscore');
 
         this._data = [];
         this._size = [];
-        this._type = 'matrix';
+        this._class = 'matrix';
 
         if (utility.isArray(obj) === false) {
             throw new Error('Object Unrecognized');
@@ -82,13 +82,13 @@ var _ = require('./lib/underscore');
 
     matrix.isMatrix = function(obj) {
         if (obj === null || typeof obj === 'undefined' ||
-            obj._type === null || typeof obj._type === 'undefined' ||
+            obj._class === null || typeof obj._class === 'undefined' ||
             obj._size === null || typeof obj._size === 'undefined' ||
             obj._data === null || typeof obj._data === 'undefined') {
             return false;
         }
 
-        if (obj._type !== 'matrix') {
+        if (obj._class !== 'matrix') {
             return false;
         }
 
