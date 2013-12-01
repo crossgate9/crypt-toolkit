@@ -138,3 +138,11 @@ suite('Multiple', function() {
         (function() { a.multiple(b); }).should.throw('Size not match');
     });
 });
+
+suite('toString', function() {
+    test('Success', function() {
+        var a = new Matrix();
+        a.init([[1,2],[3,4]], a.TYPE.BYDATA);
+        assert.equal('[[1,2],[3,4]]', a.toString());
+    });
+});

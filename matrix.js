@@ -17,6 +17,25 @@ var _ = require('./lib/underscore');
     matrix.prototype.getData = function() {
         return this._data;
     };
+
+    matrix.prototype.toString = function() {
+        var res = '';
+        var d = this.getData();
+        var s = this.getSize();
+        var i, j;
+        res += '[';
+        for (i = 0; i < s[0]; i++) {
+            if (i !== 0) res += ',';
+            res += '[';
+            for (j = 0; j < s[1]; j++) {
+                if (j !== 0) res += ',';
+                res += d[i][j];
+            }
+            res += ']';
+        }
+        res += ']';
+        return res;
+    };
     
     matrix.prototype.init = function(obj, type) {
         var i;
