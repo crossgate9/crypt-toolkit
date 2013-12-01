@@ -1,4 +1,5 @@
-var utility = require('./utility');
+var utility = require('./utility'),
+    Matrix = require('./Matrix');
 
 (function() {
     var vector = function() { };
@@ -43,6 +44,24 @@ var utility = require('./utility');
         }
         s += ']';
         return s;
+    };
+
+    vector.prototype.toMatrix = function() {
+        var a = new Matrix();
+        if (this._type === this.TYPE.ROW) {
+            a.init([this.getData()], a.TYPE.BYDATA);
+            return a;
+        } else {
+            var i;
+            var s = this.getSize(),
+                d = this.getData();
+            var ad = [];
+            for (i = 0; i < s; i++) {
+                ad[i] = [d[i]];
+            }
+            a.init(ad, a.TYPE.BYDATA);
+            return a;
+        }
     };
 
     vector.prototype.getClass = function() {

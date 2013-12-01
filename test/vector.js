@@ -134,3 +134,17 @@ suite('isVector', function() {
         (function() { Vector.isVector(a); }).should.throw('Size doesn\'t match');
     });
 });
+
+suite('toMatrix', function() {
+    test('Row Vector', function() {
+        var a = new Vector();
+        a.init([1,2,3], a.TYPE.ROW);
+        assert.deepEqual([[1,2,3]], a.toMatrix().getData());
+    });
+
+    test('Column Vector', function() {
+        var a = new Vector();
+        a.init([1,2,3], a.TYPE.COLUMN);
+        assert.deepEqual([[1],[2],[3]], a.toMatrix().getData());
+    });
+});
