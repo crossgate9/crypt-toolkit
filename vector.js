@@ -2,10 +2,19 @@
     var vector = function() { };
     vector.VERSION = '0.1.0';
 
-    vector.prototype.init = function(obj) {
+    vector.prototype.TYPE = {
+        'ROW': 0,
+        'COLUMN': 1
+    };
+
+    vector.prototype.init = function(obj, type) {
+        type = type | this.TYPE.ROW;
+
         this._data = [];
         this._size = 0;
-        this._type = 'vector';
+        this._class = 'vector';
+        this._type = type;
+        
         this._plus = function(a, b) { return a+b; };
         this._multiple = function(a, b) { return a*b; };
         this._one = 1;
@@ -63,8 +72,8 @@
     vector.prototype.plus = function(obj) {
         var self = this;
 
-        if (typeof obj._type !== 'undefined') {
-            if (obj._type !== 'vector') {
+        if (typeof obj._class !== 'undefined') {
+            if (obj._class !== 'vector') {
                 throw new Error('Not a Vector Object');
             }
 
@@ -91,8 +100,8 @@
             for (i = 0; i < this._size; i++) {
                 this._data[i] = self._multiple(this._data[i], obj);
             }
-        } else if (typeof obj._type !== 'undefined') {
-            if (obj._type !== 'vector') {
+        } else if (typeof obj._class !== 'undefined') {
+            if (obj._class !== 'vector') {
                 throw new Error('Dot Object Unrecognized');
             }
             // dot vector
