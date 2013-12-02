@@ -74,7 +74,7 @@ suite('isMatrix', function() {
 
     test('False III', function() {
         var a = {
-            _type: 'matrix',
+            _class: 'matrix',
             _size: [2, 2],
             _data: 'abc'
         };
@@ -83,10 +83,11 @@ suite('isMatrix', function() {
 
     test('False IV', function() {
         var a = {
-            _type: 'matrix',
+            _class: 'matrix',
             _size: [2, 2],
             _data: [[1,2,3],[2,3,4]]
         };
+        console.log(a);
         (function() { Matrix.isMatrix(a); }).should.throw('Size doesn\'t match');
     });
 });
@@ -116,12 +117,27 @@ suite('Plus', function() {
 });
 
 suite('Multiple', function() {
-    test('Success', function() {
+    test('Success I', function() {
         var a = new Matrix(),
             b = new Matrix();
         a.init([[1,2],[3,4]], a.TYPE.BYDATA);
         b.init([[1,2],[3,4]], b.TYPE.BYDATA);
         assert.deepEqual([[7, 10], [15, 22]], b.multiple(a).getData());
+    });
+
+    test('Success II', function() {
+        var a = new Matrix(),
+            b = new Vector();
+
+        // column vector
+        a.init([[1,2],[3,4]], a.TYPE.BYDATA);
+        b.init([1,2], b.TYPE.COLUMN);
+        assert.deepEqual([[5],[11]], a.multiple(b).getData());
+
+        // row vector
+        a.init([[1,2],[3,4]], a.TYPE.BYDATA);
+        b.init([1,2], b.TYPE.ROW);
+        assert.deepEqual([[7,10]],b.toMatrix().multiple(a).getData());
     });
 
     test('Fail I', function() {

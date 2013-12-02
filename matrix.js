@@ -1,4 +1,5 @@
-var utility = require('./utility');
+var utility = require('./utility'),
+    Vector = require('./vector');
 var _ = require('./lib/underscore');
 
 (function() {
@@ -35,6 +36,10 @@ var _ = require('./lib/underscore');
         }
         res += ']';
         return res;
+    };
+
+    matrix.prototype.getClass = function() {
+        return this._class;
     };
     
     matrix.prototype.init = function(obj, type) {
@@ -99,6 +104,9 @@ var _ = require('./lib/underscore');
             return false;
         }
 
+        console.log(size);
+        console.log(obj._size);
+
         if (size[0] !== obj._size[0] || size[1] !== obj._size[1]) {
             throw new Error('Size doesn\'t match');
         }
@@ -130,7 +138,11 @@ var _ = require('./lib/underscore');
 
     matrix.prototype.multiple = function(obj) {
         if (matrix.isMatrix(obj) === false) {
-            throw new Error('Object not a matrix');
+            if (Vector.isVector(obj) === false) {
+                throw new Error('Object not a matrix');
+            } else {
+                return this.multiple(obj.toMatrix());
+            }
         }
 
         var sizeA = this.getSize(),
